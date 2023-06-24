@@ -1,6 +1,5 @@
 #load libraries
 ##########################
-library(tidyverse)
 library(DESeq2)
 library(airway)
 library(readxl)
