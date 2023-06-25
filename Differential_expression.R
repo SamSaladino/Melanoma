@@ -28,7 +28,7 @@ data_store <- lapply(paste0('datos21/', sample$File.Name), function(file) {
 
 # Combine the data_store list into a matrix for DEGs
 count_matrix <- do.call(cbind, data_store)
-# Convert into intergers
+# Convert into integers
 count_matrix <- round(count_matrix)
 
 # Get genes ensemble IDs without .version (all 60483)
@@ -43,7 +43,8 @@ df_expression <- data.frame(count_matrix, stringsAsFactors = FALSE)
 rownames(df_expression) <- t(df_genes)
 
 
-########## DESGs Analisys ####################
+# Perform DESGs Analisys 
+######################################
 # Construct a DESqDataSet object-------
 dds <- DESeqDataSetFromMatrix(countData = count_matrix, 
                        colData = sample, 
@@ -65,6 +66,10 @@ res
 
 # Export the matrix to CSV
 write.csv(res, file = "DEGs.csv", row.names = FALSE)
+
+
+
+
 
 # Function to check if a value is an integer
 isNonInteger <- function(x) {
@@ -102,17 +107,13 @@ if (is.integer(count_matrix) && all(count_matrix == as.integer(count_matrix))) {
 
 
 
+# Create a sample matrix with float values
+matrix <- matrix(c(1.5, 2.7, 3.3, 4.9), nrow = 4)
 
-# Create a sample dataframe
-df <- data.frame(
-  col1 = c(1, 2, 3),
-  col2 = c(4, 5, 6),
-  col3 = c(7, 8, 9)
-)
+# Convert the matrix values to integers while preserving dimensions
+integer_matrix <- apply(matrix,c(1), as.integer)
 
-# Assign row names to the dataframe
-rownames(df) <- c("row1", "row2", "row3")
-
-# Print the dataframe with row names
-print(df)
+# Print the integer matrix
+print(integer_matrix)
+dim(matrix)
 
