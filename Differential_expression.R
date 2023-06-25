@@ -39,7 +39,8 @@ df_genes <- data.frame(
 df_genes$survey <- sapply(strsplit(df_genes$survey, "\\."), function(x) x[1])
 
 # Create the df_expression data frame by combining df_genes and expression_matrix
-#df_expression <- data.frame(df_genes,expression_matrix, stringsAsFactors = FALSE)
+df_expression <- data.frame(count_matrix, stringsAsFactors = FALSE)
+rownames(df_expression) <- t(df_genes)
 
 
 ########## DESGs Analisys ####################
