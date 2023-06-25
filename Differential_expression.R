@@ -46,7 +46,7 @@ rownames(df_expression) <- t(df_genes)
 # Perform DESGs Analisys 
 ######################################
 # Construct a DESqDataSet object-------
-dds <- DESeqDataSetFromMatrix(countData = count_matrix, 
+dds <- DESeqDataSetFromMatrix(countData = df_expression, 
                        colData = sample, 
                        design = ~ Sample.Type)
 
@@ -63,57 +63,10 @@ res <- results(dds)
 
 res
 
-
 # Export the matrix to CSV
 write.csv(res, file = "DEGs.csv", row.names = FALSE)
 
+####### THE END ##########
 
 
-
-
-# Function to check if a value is an integer
-isNonInteger <- function(x) {
-  !is.integer(x) || any(x != as.integer(x))
-}
-
-# Function to find non-integer values in a matrix
-findNonIntegerValues <- function(mat) {
-  nonIntegerValues <- mat[apply(mat, c(1, 2), isNonInteger)]
-  unique(na.omit(nonIntegerValues))
-}
-
-
-# Check for non-integer values
-nonIntegerValues <- findNonIntegerValues(count_matrix)
-
-# Print non-integer values if any
-if (length(nonIntegerValues) > 0) {
-  cat("The matrix contains non-integer values:\n")
-  print(nonIntegerValues)
-} else {
-  cat("The matrix contains only integers.\n")
- }
-
-
-
-
-# Check if all elements are integers
-if (is.integer(count_matrix) && all(count_matrix == as.integer(count_matrix))) {
-  print("The matrix contains only integers.")
-} else {
-  print("The matrix contains non-integer values.")
-}
-
-
-
-
-# Create a sample matrix with float values
-matrix <- matrix(c(1.5, 2.7, 3.3, 4.9), nrow = 4)
-
-# Convert the matrix values to integers while preserving dimensions
-integer_matrix <- apply(matrix,c(1), as.integer)
-
-# Print the integer matrix
-print(integer_matrix)
-dim(matrix)
 
