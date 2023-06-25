@@ -39,7 +39,7 @@ df_genes <- data.frame(
 df_genes$survey <- sapply(strsplit(df_genes$survey, "\\."), function(x) x[1])
 
 # Create the df_expression data frame by combining df_genes and expression_matrix
-df_expression <- data.frame(df_genes,expression_matrix, stringsAsFactors = FALSE)
+#df_expression <- data.frame(df_genes,expression_matrix, stringsAsFactors = FALSE)
 
 
 ########## DESGs Analisys ####################
@@ -97,3 +97,21 @@ if (is.integer(count_matrix) && all(count_matrix == as.integer(count_matrix))) {
 } else {
   print("The matrix contains non-integer values.")
 }
+
+
+
+
+
+# Create a sample dataframe
+df <- data.frame(
+  col1 = c(1, 2, 3),
+  col2 = c(4, 5, 6),
+  col3 = c(7, 8, 9)
+)
+
+# Assign row names to the dataframe
+rownames(df) <- c("row1", "row2", "row3")
+
+# Print the dataframe with row names
+print(df)
+
