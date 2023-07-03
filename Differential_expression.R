@@ -2,6 +2,8 @@
 ##########################
 library(DESeq2)
 library(TCGAbiolinks)
+library(tidyverse)
+library(ggplot2)
 #########################
 
 #Preparing count data
@@ -60,8 +62,20 @@ dds$Sample.Type <- relevel(dds$Sample.Type, ref = "Primary Tumor")
 # Run DESeq -----
 dds <- DESeq(dds)
 res <- results(dds)
-
 res
+
+# Explrore results -----
+summary(res)
+
+res0.01 <- results(dds, alpha = 0.01)
+summary(res0.01)
+
+# Convert to df
+res.df <- as.data.frame(res)
+res.df
+
+ggplot(res.df, aes(x = log2FoldChange, y = -log10(padj))) + 
+  geom_point()
 
 # Export the matrix to CSV
 write.csv(res, file = "DEGs.csv", row.names = FALSE)
